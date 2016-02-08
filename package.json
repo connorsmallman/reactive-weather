@@ -11,6 +11,11 @@
   },
   "author": "Connor Smallman",
   "license": "ISC",
+  "browserify": {
+    "transform": [
+      "babelify"
+    ]
+  },
   "dependencies": {
     "babel-plugin-transform-class-properties": "^6.4.0",
     "babel-polyfill": "^6.3.14",
@@ -19,6 +24,7 @@
     "babel-preset-stage-1": "^6.3.13",
     "babelify": "^7.2.0",
     "browserify": "^13.0.0",
+    "gulp": "^3.9.0",
     "history": "^1.17.0",
     "jquery": "^2.2.0",
     "lodash": "^4.2.1",
@@ -26,6 +32,20 @@
     "qwest": "^3.0.0",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
-    "react-router": "^1.0.3"
+    "react-router": "^1.0.3",
+    "reset.css": "^2.0.2",
+    "skycons": "^1.0.0"
+  },
+  "devDependencies": {
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-load-plugins": "^1.2.0",
+    "gulp-sass": "^2.2.0",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^1.5.2",
+    "gulp-util": "^3.0.7",
+    "require-dir": "^0.3.0",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.7.0"
   }
 }

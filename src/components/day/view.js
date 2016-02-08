@@ -1,6 +1,6 @@
 import React from 'react';
-import icons from '../helpers/icons';
-import Skycons from './skycons';
+import icons from '../../helpers/icons';
+import Skycons from '../skycons/view';
 
 export default class extends React.Component{
 	constructor(props) {

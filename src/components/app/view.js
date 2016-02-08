@@ -1,12 +1,12 @@
-import React from "react"
+import React from 'react';
 import qwest from 'qwest';
 import _ from "lodash";
-import getDayName from '../helpers/dayName';
-import Nav from './nav';
+import getDayName from '../../helpers/dayName';
+import Nav from '../nav/view';
 
 let apiKey = 'c1d1917fdef73bdc3e62cab32be1dc30';
 
-class App extends React.Component{
+export default class extends React.Component{
   constructor(props, context) {
     super(props, context);
     this.state = { week: null, city: null, country: null };
@@ -38,7 +38,7 @@ class App extends React.Component{
           city: response.city.name, 
           country: response.country, 
           week,
-        }, _ => {
+        }, () => {
           this.props.history.pushState(null, 'Today');
         });
       });
@@ -57,5 +57,3 @@ class App extends React.Component{
     </section>
   }
 };
-
-export default App;
