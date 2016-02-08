@@ -3,5 +3,6 @@
 var gulp = require('gulp');
 require('require-dir')('./tasks');
 
-gulp.task('default', ['html','scripts','sass']);
+gulp.task('start', ['connect']);
+gulp.task('default', ['start']);
 

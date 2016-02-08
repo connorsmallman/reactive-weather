@@ -2,3 +2,14 @@
 @import 'src/components/app/styles';
 @import 'src/components/day/styles';
 @import 'src/components/nav/styles';
+
+#app {
+  background: #fff;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  width: 300px;
+  padding: 20px;
+}
