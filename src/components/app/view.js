@@ -1,8 +1,9 @@
 import React from 'react';
 import qwest from 'qwest';
-import _ from "lodash";
+import _ from 'lodash';
 import getDayName from '../../helpers/dayName';
 import Nav from '../nav/view';
+import Flash from '../flash/view';
 
 let apiKey = 'c1d1917fdef73bdc3e62cab32be1dc30';
 
@@ -25,6 +26,7 @@ export default class extends React.Component{
   }
 
   getWeather() {
+    let _this = this;
     this.getLocation().then(location => {
       let weather = localStorage.getItem('weather');
 
@@ -39,25 +41,29 @@ export default class extends React.Component{
 
           response.date = new Date();
 
-          localStorage.setItem('weather', response);
+          localStorage.setItem('weather', JSON.stringify(response));
+
+          return response;
         });
       } else {
-        return weather;
+        return JSON.parse(weather);
       }
     }).then(function(weather) {
-      this.setState({ 
-            city: weather.city.name, 
-            country: weather.country, 
-            weather: weather.list,
-          }, () => {
-            this.props.history.pushState(null, 'Today');
-          });
+      console.log(weather);
+      _this.setState({ 
+        city: weather.city.name, 
+        country: weather.city.country, 
+        week: weather.list,
+      }, () => {
+        _this.props.history.pushState(null, 'Today');
+      });
     });
   }
 
   render() {
     return <section>
       <header>{this.state.city}</header>
+      <Flash flash={this.state.flash} />
       {this.props.children && React.cloneElement(this.props.children, {
         week: this.state.week,
       })}

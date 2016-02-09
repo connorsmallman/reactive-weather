@@ -9,13 +9,7 @@ export default class extends React.Component{
   }
 
   render() {
-  	let navStyle = {
-  		display: 'flex',
-  		flexFlow: 'row nowrap',
-  		justifyContent: 'space-around',
-  	}
-
-    return <nav style={navStyle}> {_.map(this.props.week, (day, i) => {
+    return <nav> {_.map(this.props.week, (day, i) => {
       return <IndexLink activeStyle={ACTIVE} key={i} to={`${day.name}`}>{day.name}</IndexLink>;
     })} </nav>
   }

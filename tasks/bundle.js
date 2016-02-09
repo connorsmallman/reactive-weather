@@ -43,6 +43,9 @@ function bundle(cb, watch) {
     .on('end', cb);
 }
 
+//export bundler used by watch
+module.exports = bundler;
+
 gulp.task('scripts', function(cb) {
   bundle(cb, false);
 });
