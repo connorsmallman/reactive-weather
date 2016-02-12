@@ -32,6 +32,7 @@
     "qwest": "^3.0.0",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
+    "react-interval": "^1.2.1",
     "react-router": "^1.0.3",
     "reset.css": "^2.0.2",
     "skycons": "^1.0.0"

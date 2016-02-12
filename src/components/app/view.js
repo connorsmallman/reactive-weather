@@ -4,6 +4,7 @@ import _ from 'lodash';
 import getDayName from '../../helpers/dayName';
 import Nav from '../nav/view';
 import Flash from '../flash/view';
+import ReactInterval from 'react-interval';
 
 let apiKey = 'c1d1917fdef73bdc3e62cab32be1dc30';
 
@@ -11,10 +12,6 @@ export default class extends React.Component{
   constructor(props, context) {
     super(props, context);
     this.state = { week: null, city: null, country: null };
-  }
-
-  componentWillMount() {
-    this.getWeather();
   }
 
   getLocation() {
@@ -26,42 +23,43 @@ export default class extends React.Component{
   }
 
   getWeather() {
-    let _this = this;
     this.getLocation().then(location => {
+      let url = `http://api.openweathermap.org/data/2.5/forecast/daily?lat=${location.latitude}&lon=${location.longitude}&cnt=5&mode=json&appid=${apiKey}&units=metric`;
+
+      return qwest.get(url, null, {cache: true}).then((xhr, response) => {
+        response.list.map(day => {
+          day.name = getDayName(day.dt);
+          return day;
+        });
+
+        response.date = new Date();
+
+        localStorage.setItem('weather', JSON.stringify(response));
+
+        return response;
+      });
+    }).catch((e, xhr, response) => {
+      //if failed check for cache
       let weather = localStorage.getItem('weather');
 
-      if(!weather) {
-        let url = `http://api.openweathermap.org/data/2.5/forecast/daily?lat=${location.latitude}&lon=${location.longitude}&cnt=5&mode=json&appid=${apiKey}&units=metric`;
-
-        return qwest.get(url, null, {cache: true}).then((xhr, response) => {
-          response.list.map(day => {
-            day.name = getDayName(day.dt);
-            return day;
-          });
-
-          response.date = new Date();
-
-          localStorage.setItem('weather', JSON.stringify(response));
-
-          return response;
-        });
-      } else {
-        return JSON.parse(weather);
-      }
-    }).then(function(weather) {
-      console.log(weather);
-      _this.setState({ 
+      if (!weather) throw new Error('Offline and no cache');
+      
+      return JSON.stringify(weather);
+    }).then((weather) => {
+      //always
+      this.setState({ 
         city: weather.city.name, 
         country: weather.city.country, 
         week: weather.list,
       }, () => {
-        _this.props.history.pushState(null, 'Today');
+        this.props.history.pushState(null, 'Today');
       });
     });
   }
 
   render() {
     return <section>
+      <ReactInterval timeout={10000} enabled={true} callback={this.getWeather.bind(this)} /> 
       <header>{this.state.city}</header>
       <Flash flash={this.state.flash} />
       {this.props.children && React.cloneElement(this.props.children, {
