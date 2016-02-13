@@ -2,15 +2,19 @@
 
 Small weather app built with Reactjs and Open Weather Map api.
 
-##Requirements
-
-node@5.0.0
-npm@3.0.0
-
 ##Getting started
 
-First install node module dependencies 
-```bash
+[Fork](https://help.github.com/articles/fork-a-repo/) and
+[clone](http://git-scm.com/docs/git-clone) this repo.
+
+```
+git clone git@github.com:connorsmallman/reactive-weather.git && cd reactive-weather
+```
+
+Make sure latest [Node.js](http://nodejs.org/) and [npm](https://www.npmjs.org/) are
+[installed](http://nodejs.org/download/).
+
+```
 npm install
 ```
 
