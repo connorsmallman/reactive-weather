@@ -1,1 +1,18 @@
-
+.app {
+  header {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #000;
+    font-size: 3.4rem;
+    padding: 0 0 10px;
+    text-align: center;
+  }
+  
+  footer {
+    padding: 10px 0;
+    
+    .last-updated {
+      margin-top: 25px;
+      text-align: center;
+    }
+  }
+}

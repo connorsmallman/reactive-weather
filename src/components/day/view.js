@@ -22,7 +22,7 @@ export default class extends React.Component{
     let pressure = day.pressure;
     let wind = day.speed;
 
-    return <article>
+    return <section className='day'>
     	<header>
     		<hgroup>
     			<h1>{name}</h1>
@@ -45,6 +45,6 @@ export default class extends React.Component{
     			<p><strong>Wind: </strong>{wind}</p>
     		</div>
     	</footer>
-    </article>
+    </section>
 	}
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import qwest from 'qwest';
 import _ from 'lodash';
+import moment from 'moment';
 import getDayName from '../../helpers/dayName';
 import Nav from '../nav/view';
 import Flash from '../flash/view';
@@ -14,10 +15,17 @@ export default class extends React.Component{
     this.state = { week: null, city: null, country: null };
   }
 
+  componentWillMount() {
+    this.getWeather();
+  }
+
   getLocation() {
     return new Promise((resolve, reject) => {
-      navigator.geolocation.getCurrentPosition((position) => {
+      navigator.geolocation.getCurrentPosition(position => {
         resolve(position.coords);
+      }, err => {
+        console.log(err.code);
+        reject();
       });
     });
   }
@@ -32,25 +40,27 @@ export default class extends React.Component{
           return day;
         });
 
-        response.date = new Date();
+        response.lastUpdated = moment().format('MMM Do, h:mm:ss a');
+
+        console.log(response.lastUpdated);
 
         localStorage.setItem('weather', JSON.stringify(response));
 
         return response;
       });
-    }).catch((e, xhr, response) => {
-      //if failed check for cache
+    }).catch(() => {
       let weather = localStorage.getItem('weather');
 
-      if (!weather) throw new Error('Offline and no cache');
-      
-      return JSON.stringify(weather);
+      if (!weather) throw new Error('No offline cache');
+
+      return JSON.parse(weather);
     }).then((weather) => {
       //always
       this.setState({ 
         city: weather.city.name, 
         country: weather.city.country, 
         week: weather.list,
+        lastUpdated: weather.lastUpdated,
       }, () => {
         this.props.history.pushState(null, 'Today');
       });
@@ -58,15 +68,16 @@ export default class extends React.Component{
   }
 
   render() {
-    return <section>
-      <ReactInterval timeout={10000} enabled={true} callback={this.getWeather.bind(this)} /> 
-      <header>{this.state.city}</header>
+    return <section className='app'>
+      <ReactInterval timeout={600000} enabled={true} callback={this.getWeather.bind(this)} /> 
+      <header><h1>{this.state.city}</h1></header>
       <Flash flash={this.state.flash} />
       {this.props.children && React.cloneElement(this.props.children, {
         week: this.state.week,
       })}
       <footer>
         <Nav week={this.state.week} />
+        <div className='last-updated'><small>Last updated: {this.state.lastUpdated}</small></div>
       </footer>
     </section>
   }

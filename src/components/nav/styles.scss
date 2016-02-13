@@ -1,0 +1,16 @@
+.nav {
+  display: flex; 
+  flex-flow: row nowrap;
+  justify-content: space-around;
+
+  a {
+    border-right: 1px solid #ccc;
+    padding: 10px 14px;
+    color: #ccc;
+    text-decoration: none;
+
+    &:last-of-type { 
+      border: none;
+    }
+  }
+} 
