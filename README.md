@@ -1,8 +1,10 @@
 # Reactive Weather App
 
+Small weather app built with Reactjs and Open Weather Map api.
+
 ##Getting started
 
-First install node modules 
+First install node module dependencies 
 ```bash
 npm install
 ```
@@ -12,7 +14,7 @@ Then, start app
 gulp start
 ```
 
-Point browser at
+Then, open browser at
 ```bash
 localhost:8000
 ```
