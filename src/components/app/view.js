@@ -24,7 +24,6 @@ export default class extends React.Component{
       navigator.geolocation.getCurrentPosition(position => {
         resolve(position.coords);
       }, err => {
-        console.log(err.code);
         reject();
       });
     });
@@ -41,8 +40,6 @@ export default class extends React.Component{
         });
 
         response.lastUpdated = moment().format('MMM Do, h:mm:ss a');
-
-        console.log(response.lastUpdated);
 
         localStorage.setItem('weather', JSON.stringify(response));
 
